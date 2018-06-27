@@ -1,0 +1,229 @@
+.App {
+  .App-header {
+    text-align: center;
+  }
+
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+  }
+
+  .App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white !important;
+  }
+
+  .App-title {
+    font-size: 1.5em;
+    color: white !important;
+  }
+
+  .App-intro {
+    font-size: large;
+  }
+
+  > main {
+    width: 960px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+
+  @keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+$cell-core-radius: 21px;
+$cell-radius: $cell-core-radius + 9px;
+$cell-margin: 100px;
+
+.gm-cells-empty {
+  float: left;
+  width: $cell-margin * 4 + $cell-radius * 2;
+  height: $cell-margin * 4 + $cell-radius * 2;
+  margin: 50px auto;
+}
+
+.gm-cells {
+  float: left;
+  width: $cell-margin * 4 + $cell-radius * 2;
+  height: $cell-margin * 4 + $cell-radius * 2;
+  margin: 50px auto;
+  position: relative;
+
+  .gm-cell {
+    position: absolute;
+    display: inline-block;
+    width: $cell-radius * 2;
+    height: $cell-radius * 2;
+
+    .gm-cell-core {
+      position: absolute;
+      left: 8px;
+      top: 9px;
+      width: $cell-core-radius * 2;
+      height: $cell-core-radius * 2;
+    }
+  }
+
+  .gm-cell {
+    position: absolute;
+    border: lightgoldenrodyellow 1px solid;
+  }
+
+  .gm-cell-corner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right: 16px solid gray;
+    cursor: pointer;
+
+    &.gm-cell-corner-tl {
+      transform: rotate(45deg);
+      top: -10px;
+      left: -2px;
+    }
+
+    &.gm-cell-corner-tr {
+      transform: rotate(135deg);
+      top: -10px;
+      left: 44px;
+    }
+
+    &.gm-cell-corner-bl {
+      transform: rotate(-45deg);
+      top: 36px;
+      left: -2px;
+    }
+
+    &.gm-cell-corner-br {
+      transform: rotate(225deg);
+      top: 36px;
+      left: 44px;
+    }
+  }
+
+  .gm-cell-corner-line {
+    position: absolute;
+    height: 0;
+    width: 61px;
+    border-top: 4px solid gray;
+
+    &.gm-cell-corner-line-l {
+      top: 76px;
+      transform: rotate(135deg);
+      left: -51px;
+    }
+
+    &.gm-cell-corner-line-r {
+      top: 76px;
+      transform: rotate(226deg);
+      left: 48px;
+    }
+  }
+
+  .gm-row {
+    height: 60px;
+  }
+
+  .gm-row-t {
+    .gm-cell {
+      left: $cell-margin * 2;
+    }
+  }
+
+  .gm-row-td {
+    position: absolute;
+    top: $cell-margin;
+    .gm-cell {
+      &:nth-child(1) {
+        left: $cell-margin;
+      }
+
+      &:nth-child(2) {
+        left: $cell-margin * 3;
+      }
+    }
+  }
+
+  .gm-row-m {
+    position: absolute;
+    top: $cell-margin * 2;
+    .gm-cell {
+      &:nth-child(1) {
+        left: 0;
+      }
+
+      &:nth-child(2) {
+        left: $cell-margin * 2;
+      }
+
+      &:nth-child(3) {
+        left: $cell-margin * 4;
+      }
+    }
+  }
+
+  .gm-row-bd {
+    position: absolute;
+    top: $cell-margin * 3;
+    .gm-cell {
+      &:nth-child(1) {
+        left: $cell-margin;
+      }
+
+      &:nth-child(2) {
+        left: $cell-margin * 3;
+      }
+    }
+  }
+
+  .gm-row-b {
+    position: absolute;
+    top: $cell-margin * 4;
+    .gm-cell {
+      &:nth-child(1) {
+        left: $cell-margin * 2;
+      }
+    }
+  }
+}
+
+.gm-calc {
+  float: left;
+  width: 330px;
+  margin: 50px 0 0 50px;
+
+  .grade-select {
+    margin: 10px 0;
+  }
+
+  .calc-btn {
+    margin-top: 10px;
+  }
+
+  .top-plan-list {
+    list-style: none;
+    padding: 0;
+    max-height: 350px;
+    overflow-y: auto;
+    margin-top: 20px;
+
+    li {
+      cursor: pointer;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+
+      .line-count {
+        display: inline-block;
+        margin-right: 20px;
+      }
+    }
+  }
+}
