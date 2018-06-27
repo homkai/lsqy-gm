@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "装备共鸣",
+  "name": "灵山奇缘-装备共鸣模拟器",
   "icons": [
     {
       "src": "favicon.ico",

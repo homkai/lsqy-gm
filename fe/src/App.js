@@ -8,7 +8,7 @@ import demoGm from './gm_bg.jpg';
 import Cell from './Cell';
 import CellCornerModal from './CellCornerModal';
 
-import {walkCells, cellsForWalk, formatColor, getPlanCells, defaultCells} from './tool';
+import {walkCells, cellsForWalk, formatColor, getPlanCells, getTopList, defaultCells} from './tool';
 import combinatorics from './combinatorics';
 
 const Option = Select.Option;
@@ -38,8 +38,9 @@ class App extends Component {
         type: 'info',
         content: <span>
           上传截图识别失败的，可以切换到手动模式。
-          欢迎到<a target="_blank" rel="noopener noreferrer" href="https://github.com/homkai/lsqy-gm/"> GitHub </a>
-          反馈问题或star
+          欢迎到<a target="_blank" rel="noopener noreferrer" href="http://tieba.baidu.com/p/5768717398?pid=120516839719"> 贴吧 </a>
+          讨论。<a target="_blank" rel="noopener noreferrer" href="https://github.com/homkai/lsqy-gm/"> GitHub </a>
+          可以一起完善
         </span>
       }
     });
@@ -95,11 +96,15 @@ class App extends Component {
         plans.push(walkCells(cells, grade));
       });
 
-      const topList = _.sortBy(plans, sort).slice(-100).reverse();
+      const topList = getTopList(plans, sort);
       this.setState({
         topList,
+        positions: topList.length ? topList[0].positions : [],
         calcDisabled: false,
-        message: null
+        message: {
+          type: 'success',
+          content: '点击方案，可查看装备排列方式'
+        }
       });
       this.plans = plans;
     }, 100);
@@ -119,17 +124,29 @@ class App extends Component {
 
   handleSelectSort0 = value => {
     const sort = [value, this.state.sort[1]];
+    if (!this.plans) {
+      this.setState({sort});
+      return;
+    }
+    const topList = getTopList(this.plans, sort);
     this.setState({
       sort,
-      topList: _.sortBy(this.plans, sort).slice(-100).reverse()
+      topList,
+      positions: topList.length ? topList[0].positions : []
     });
   }
 
   handleSelectSort1 = value => {
     const sort = [this.state.sort[0], value];
+    if (!this.plans) {
+      this.setState({sort});
+      return;
+    }
+    const topList = getTopList(this.plans, sort);
     this.setState({
       sort,
-      topList: _.sortBy(this.plans, sort).slice(-100).reverse()
+      topList,
+      positions: topList.length ? topList[0].positions : []
     });
   }
 
@@ -231,6 +248,11 @@ class App extends Component {
               <Option value={60}>60级（解锁全部槽位）</Option>
             </Select>
             <br />
+            <Button className="calc-btn" type="primary" disabled={calcDisabled || !cells.length} onClick={this.handleWalk}>
+              计算最优解
+            </Button>
+            <br />
+            <br />
             <Select key={0} value={sort[0]} stype={{width: 100}} onChange={this.handleSelectSort0}>
               <Option value="total">优先：总数</Option>
               <Option value="red">优先：攻击</Option>
@@ -245,8 +267,6 @@ class App extends Component {
               <Option value="yellow">其次：速度</Option>
               <Option value="blue">其次：气血</Option>
             </Select>
-            <br />
-            <Button className="calc-btn" type="primary" disabled={calcDisabled} onClick={this.handleWalk}>计算最优解</Button>
             {
               !!topList.length && <ul className="top-plan-list">
                 {
