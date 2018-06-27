@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import {formatColor, formatCornerName} from './tool';
 import { Modal, Radio } from 'antd';
+import _ from 'lodash';
+
 const RadioGroup = Radio.Group;
+
+const GRAY = 'gray'
 
 
 export default class extends Component {
-  state = {value: null}
+  state = {values: null}
 
   handleOk = (e) => {
-    const {cornerName, cellName, onChangeCellCorner} = this.props;
-    onChangeCellCorner({cellName, cornerName}, this.state.value === 'gray' ? null : this.state.value);
+    const {cellName, onChangeCellCorner} = this.props;
+    onChangeCellCorner({cellName}, _.mapValues(this.state.values, item => item === GRAY ? null : item));
   }
 
   handleCancel = (e) => {
-    const {cornerName, color, cellName, onChangeCellCorner} = this.props;
-    onChangeCellCorner({cellName, cornerName}, color);
+    const {colors, cellName, onChangeCellCorner} = this.props;
+    onChangeCellCorner({cellName}, colors);
   }
 
-  handleChange = (e) => {
+  handleChange = (cornerName, e) => {
+    const values = this.state.values || this.props.colors;
     this.setState({
-      value: e.target.value
+      values: {
+        ...values,
+        [cornerName]: e.target.value
+      }
     });
   }
 
   render() {
-    const {cornerName, color} = this.props;
-    const value = this.state.value || color;
+    const {colors} = this.props;
+    const values = this.state.values || colors;
 
     return (
       <div>
@@ -34,16 +42,23 @@ export default class extends Component {
           visible={true}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          className="cell-conner-modal"
+          width={810}
         >
-          <p>你可以改变本装备{formatCornerName(cornerName)}颜色：</p>
+          <p>你可以改变本装备四角颜色：</p>
           <div>
-            <RadioGroup onChange={this.handleChange} value={value}>
-              <Radio value={'red'}><span color={formatColor('red')}>红</span></Radio>
-              <Radio value={'green'}><span color={formatColor('green')}>绿</span></Radio>
-              <Radio value={'yellow'}><span color={formatColor('yellow')}>黄</span></Radio>
-              <Radio value={'blue'}><span color={formatColor('blue')}>蓝</span></Radio>
-              <Radio value={'gray'}><span color={formatColor('gray')}>放弃</span></Radio>
-            </RadioGroup>
+            {
+              ['tl', 'tr', 'bl', 'br'].map(cornerName => <div className="control-row" key={cornerName}>
+                <b className="label">{formatCornerName(cornerName)}</b>
+                <RadioGroup className="control" onChange={_.partial(this.handleChange, cornerName)} value={values[cornerName] || GRAY}>
+                  <Radio value={'red'}><span color={formatColor('red')}>红</span></Radio>
+                  <Radio value={'green'}><span color={formatColor('green')}>绿</span></Radio>
+                  <Radio value={'yellow'}><span color={formatColor('yellow')}>黄</span></Radio>
+                  <Radio value={'blue'}><span color={formatColor('blue')}>蓝</span></Radio>
+                  <Radio value={GRAY}><span color={formatColor('gray')}>放弃</span></Radio>
+                </RadioGroup>
+              </div>)
+            }
           </div>
         </Modal>
       </div>

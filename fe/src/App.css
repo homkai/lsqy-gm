@@ -53,6 +53,7 @@
       width: 42px;
       height: 42px; }
   .gm-cells .gm-cell {
+    cursor: pointer;
     position: absolute;
     border: lightgoldenrodyellow 1px solid; }
   .gm-cells .gm-cell-corner {
@@ -147,3 +148,12 @@
       .gm-calc .top-plan-list li .line-count {
         display: inline-block;
         margin-right: 20px; }
+
+.cell-conner-modal .control-row {
+  display: inline-block; }
+  .cell-conner-modal .control-row:nth-child(odd) {
+    margin-right: 50px; }
+  .cell-conner-modal .control-row .label {
+    display: inline-block; }
+  .cell-conner-modal .control-row .control {
+    margin-left: 20px; }

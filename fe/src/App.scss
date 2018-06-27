@@ -70,6 +70,7 @@ $cell-margin: 100px;
   }
 
   .gm-cell {
+    cursor: pointer;
     position: absolute;
     border: lightgoldenrodyellow 1px solid;
   }
@@ -224,6 +225,24 @@ $cell-margin: 100px;
         display: inline-block;
         margin-right: 20px;
       }
+    }
+  }
+}
+
+
+.cell-conner-modal {
+  .control-row {
+    display: inline-block;
+    &:nth-child(odd) {
+      margin-right: 50px;
+    }
+
+    .label {
+      display: inline-block;
+    }
+
+    .control {
+      margin-left: 20px;
     }
   }
 }

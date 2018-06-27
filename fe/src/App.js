@@ -53,11 +53,11 @@ class App extends Component {
     })
   }
 
-  handleChangeCellCorner = ({cellName, cornerName}, color) => {
+  handleChangeCellCorner = ({cellName}, colors) => {
     const baseCells = this.state.baseCells.map(item => {
       return item.name !== cellName ? item : {
         ...item,
-        [cornerName]: color
+        ...colors
       };
     });
     this.setState({
@@ -176,8 +176,8 @@ class App extends Component {
     this.setState({
       baseCells: JSON.parse(defaultCells),
       message: {
-        type: 'info',
-        content: '请点击装备四角更改颜色'
+        type: 'warning',
+        content: '请点击装备更改四角颜色'
       }
     })
   }
