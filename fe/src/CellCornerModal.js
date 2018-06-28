@@ -12,13 +12,13 @@ export default class extends Component {
   state = {values: null}
 
   handleOk = (e) => {
-    const {cellName, onChangeCellCorner} = this.props;
-    onChangeCellCorner({cellName}, _.mapValues(this.state.values, item => item === GRAY ? null : item));
+    const {baseCellsIndex, onChangeCellCorner} = this.props;
+    onChangeCellCorner({baseCellsIndex}, _.mapValues(this.state.values, item => item === GRAY ? null : item));
   }
 
   handleCancel = (e) => {
-    const {colors, cellName, onChangeCellCorner} = this.props;
-    onChangeCellCorner({cellName}, colors);
+    const {colors, baseCellsIndex, onChangeCellCorner} = this.props;
+    onChangeCellCorner({baseCellsIndex}, colors);
   }
 
   handleChange = (cornerName, e) => {

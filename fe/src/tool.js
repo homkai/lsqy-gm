@@ -34,10 +34,10 @@ const gradeLeaves = {
 };
 
 export const getPlanCells = (baseCells, positions, grade) => {
-  const planCells = positions.map((item, index) => {
+  const planCells = positions.map(item => {
     return {
-      ..._.pick(baseCells[index], ['name']),
-      ..._.pick(baseCells[item], ['core', 'tl', 'tr', 'bl', 'br'])
+      ..._.pick(baseCells[item], ['core', 'tl', 'tr', 'bl', 'br']),
+      baseCellsIndex: item
     };
   });
   const liteCells = cellsForWalk(planCells);

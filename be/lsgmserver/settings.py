@@ -106,7 +106,7 @@ WSGI_APPLICATION = 'lsgmserver.wsgi.application'
 # ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'www.homkai.com',
     'homkai.com'

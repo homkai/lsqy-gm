@@ -133,11 +133,11 @@
   .gm-calc .grade-select {
     margin: 10px 0; }
   .gm-calc .calc-btn {
-    margin-top: 10px; }
+    margin-bottom: 10px; }
   .gm-calc .top-plan-list {
     list-style: none;
     padding: 0;
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
     margin-top: 20px; }
     .gm-calc .top-plan-list li {

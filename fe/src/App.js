@@ -53,9 +53,9 @@ class App extends Component {
     })
   }
 
-  handleChangeCellCorner = ({cellName}, colors) => {
-    const baseCells = this.state.baseCells.map(item => {
-      return item.name !== cellName ? item : {
+  handleChangeCellCorner = ({baseCellsIndex}, colors) => {
+    const baseCells = this.state.baseCells.map((item, index) => {
+      return index !== baseCellsIndex ? item : {
         ...item,
         ...colors
       };
@@ -203,23 +203,23 @@ class App extends Component {
           {
             !!cells.length ? <div className="gm-cells">
               <div className="gm-row gm-row-t">
-                <Cell {...{..._.find(cells, {name: 't'}), onClickCellCorner}}/>
+                <Cell {...{...cells[0], onClickCellCorner}}/>
               </div>
               <div className="gm-row gm-row-td">
-                <Cell {...{..._.find(cells, {name: 'tl'}), onClickCellCorner}}/>
-                <Cell {...{..._.find(cells, {name: 'tr'}), onClickCellCorner}}/>
+                <Cell {...{...cells[1], onClickCellCorner}}/>
+                <Cell {...{...cells[2], onClickCellCorner}}/>
               </div>
               <div className="gm-row gm-row-m">
-                <Cell {...{..._.find(cells, {name: 'l'}), onClickCellCorner}}/>
-                <Cell {...{..._.find(cells, {name: 'c'}), onClickCellCorner}}/>
-                <Cell {...{..._.find(cells, {name: 'r'}), onClickCellCorner}}/>
+                <Cell {...{...cells[3], onClickCellCorner}}/>
+                <Cell {...{...cells[4], onClickCellCorner}}/>
+                <Cell {...{...cells[5], onClickCellCorner}}/>
               </div>
               <div className="gm-row gm-row-bd">
-                <Cell {...{..._.find(cells, {name: 'bl'}), onClickCellCorner}}/>
-                <Cell {...{..._.find(cells, {name: 'br'}), onClickCellCorner}}/>
+                <Cell {...{...cells[6], onClickCellCorner}}/>
+                <Cell {...{...cells[7], onClickCellCorner}}/>
               </div>
               <div className="gm-row gm-row-b">
-                <Cell {...{..._.find(cells, {name: 'b'}), onClickCellCorner}}/>
+                <Cell {...{...cells[8], onClickCellCorner}}/>
               </div>
             </div> : <div className="gm-cells-empty">
               <h2>打开装备共鸣窗口，如下截图后，右侧上传 >></h2>
@@ -251,7 +251,6 @@ class App extends Component {
             <Button className="calc-btn" type="primary" disabled={calcDisabled || !cells.length} onClick={this.handleWalk}>
               计算最优解
             </Button>
-            <br />
             <br />
             <Select key={0} value={sort[0]} stype={{width: 100}} onChange={this.handleSelectSort0}>
               <Option value="total">优先：总数</Option>

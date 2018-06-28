@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import {formatColor} from './tool';
 
-const CellCorner = ({cellName, cornerName, color, lls, lrs}) => {
+const CellCorner = ({cornerName, color, lls, lrs}) => {
   return <div>
     <div
       className={'gm-cell-corner gm-cell-corner-' + cornerName}
@@ -23,12 +23,12 @@ const CellCorner = ({cellName, cornerName, color, lls, lrs}) => {
   </div>;
 }
 
-export default ({name, core, tl, tr, bl, br, lls, lrs, onClickCellCorner}) => {
-  return <div className="gm-cell" title="点击可更改四角颜色" onClick={_.partial(onClickCellCorner, {cellName: name, colors: {tl, tr, bl, br}})}>
-    <CellCorner {...{cellName: name, cornerName: 'tl', color: tl, lls, lrs}}/>
-    <CellCorner {...{cellName: name, cornerName: 'tr', color: tr, lls, lrs}}/>
-    <CellCorner {...{cellName: name, cornerName: 'bl', color: bl, lls, lrs}}/>
-    <CellCorner {...{cellName: name, cornerName: 'br', color: br, lls, lrs}}/>
+export default ({baseCellsIndex, core, tl, tr, bl, br, lls, lrs, onClickCellCorner}) => {
+  return <div className="gm-cell" title="点击可更改四角颜色" onClick={_.partial(onClickCellCorner, {baseCellsIndex, colors: {tl, tr, bl, br}})}>
+    <CellCorner {...{cornerName: 'tl', color: tl, lls, lrs}}/>
+    <CellCorner {...{cornerName: 'tr', color: tr, lls, lrs}}/>
+    <CellCorner {...{cornerName: 'bl', color: bl, lls, lrs}}/>
+    <CellCorner {...{cornerName: 'br', color: br, lls, lrs}}/>
     <div className="gm-cell-core"
          style={{background: 'url(' + core + ') no-repeat'}}
     />
