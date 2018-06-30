@@ -66,6 +66,8 @@ $cell-margin: 100px;
       top: 9px;
       width: $cell-core-radius * 2;
       height: $cell-core-radius * 2;
+      background-size: cover;
+      z-index: 0;
     }
   }
 
@@ -82,7 +84,7 @@ $cell-margin: 100px;
     border-top: 16px solid transparent;
     border-bottom: 16px solid transparent;
     border-right: 16px solid gray;
-    cursor: pointer;
+    z-index: 99;
 
     &.gm-cell-corner-tl {
       transform: rotate(45deg);

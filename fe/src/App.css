@@ -51,7 +51,9 @@
       left: 8px;
       top: 9px;
       width: 42px;
-      height: 42px; }
+      height: 42px;
+      background-size: cover;
+      z-index: 0; }
   .gm-cells .gm-cell {
     cursor: pointer;
     position: absolute;
@@ -63,7 +65,7 @@
     border-top: 16px solid transparent;
     border-bottom: 16px solid transparent;
     border-right: 16px solid gray;
-    cursor: pointer; }
+    z-index: 99; }
     .gm-cells .gm-cell-corner.gm-cell-corner-tl {
       transform: rotate(45deg);
       top: -10px;

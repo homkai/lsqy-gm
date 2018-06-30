@@ -14,7 +14,7 @@ def handle_uploaded_file(file):
     [filename, ext] = file.name.split('.')
     now = datetime.now()
     path = 'pics/{date}-{time}-{rand}.{ext}'\
-        .format(date=now.strftime('%Y-%m-%d'), time=now.strftime('%H%M%S'), rand=random.randint(10000, 99999), ext=ext)
+        .format(date=now.strftime('%Y-%m-%d'), time=now.strftime('%H%M%S'), rand=random.randint(10000, 99999), ext=ext.lower())
     with open(path, 'wb+') as destination:
         for chunk in file.chunks():
             destination.write(chunk)
