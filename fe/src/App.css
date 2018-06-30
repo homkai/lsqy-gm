@@ -52,7 +52,7 @@
       top: 9px;
       width: 42px;
       height: 42px;
-      background-size: cover;
+      background-size: cover !important;
       z-index: 0; }
   .gm-cells .gm-cell {
     cursor: pointer;
