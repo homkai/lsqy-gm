@@ -237,7 +237,7 @@ class App extends Component {
               withCredentials: true,
               disabled: uploadDisabled
             }}>
-              <Tooltip placement="top" title={uploadDisabled ? '请先删除已上传的图片' : 'JPG格式50KB以内'}>
+              <Tooltip placement="top" title={uploadDisabled ? '请先删除已上传的图片' : 'JPG格式100KB以内'}>
                 <Button>
                   <Icon type="upload" /> 上传装备共鸣窗口截图
                 </Button>

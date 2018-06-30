@@ -25,12 +25,16 @@ def handle_uploaded_file(file):
 def upload(request):
     if request.method == 'POST' and request.FILES['file']:
         file = request.FILES['file']
-        if file.size > 50000 or file.content_type.find('image/jp') == -1:
+        if file.size > 100000 or file.content_type.find('image/jp') == -1:
             logger.warning('pic_invalid')
-            return HttpResponseBadRequest('暂时仅支持JPG格式，50KB以内的图片')
+            return HttpResponseBadRequest('暂时仅支持JPG格式，100KB以内的图片')
         file_path = handle_uploaded_file(file)
-        cells = recog.main(file_path)
-        logger.info('pic_recog_successfully')
-        return HttpResponse(json.dumps(cells), content_type="application/json")
+        try:
+            cells = recog.main(file_path)
+            logger.info('pic_recog_successfully')
+            return HttpResponse(json.dumps(cells), content_type="application/json")
+        except Exception as err:
+            logger.error(err)
+            return HttpResponseBadRequest('截图识别失败，请保证图片的清晰度和正常尺寸，重新截图上传')
     else:
         logger.warning('upload_get_query')
