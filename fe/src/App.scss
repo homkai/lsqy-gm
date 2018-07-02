@@ -51,7 +51,7 @@ $cell-margin: 100px;
   float: left;
   width: $cell-margin * 4 + $cell-radius * 2;
   height: $cell-margin * 4 + $cell-radius * 2;
-  margin: 50px auto;
+  margin: 30px auto;
   position: relative;
 
   .gm-cell {
@@ -200,7 +200,7 @@ $cell-margin: 100px;
 .gm-calc {
   float: left;
   width: 330px;
-  margin: 50px 0 0 50px;
+  margin: 30px 0 0 50px;
 
   .grade-select {
     margin: 10px 0;
@@ -213,9 +213,10 @@ $cell-margin: 100px;
   .top-plan-list {
     list-style: none;
     padding: 0;
-    max-height: 300px;
+    max-height: 290px;
     overflow-y: auto;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 0;
 
     li {
       cursor: pointer;
@@ -228,6 +229,23 @@ $cell-margin: 100px;
         margin-right: 20px;
       }
     }
+  }
+
+  .plan-btm {
+    padding: 10px 20px;
+    text-align: right;
+  }
+}
+
+.reward-modal {
+  .ant-modal-body {
+    padding: 5px 0 10px 0;
+  }
+
+  .reward-pic {
+    height: 350px;
+    margin: 0 auto;
+    display: block;
   }
 }
 

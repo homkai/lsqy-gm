@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Alert, Select, Upload, Icon, Tooltip } from 'antd';
+import { Button, Alert, Select, Upload, Icon, Tooltip, Modal } from 'antd';
 import demoGm from './gm_bg.jpg';
+import rewardPic from './reward.jpg';
 
 import Cell from './Cell';
 import CellCornerModal from './CellCornerModal';
@@ -27,6 +28,7 @@ class App extends Component {
     grade: 60,
     sort: ['total', 'red'],
     uploadDisabled: false,
+    showReward: false
   }
 
   async componentDidMount() {
@@ -37,7 +39,7 @@ class App extends Component {
       message: {
         type: 'info',
         content: <span>
-          上传截图识别失败的，可以切换到手动模式。
+          已大幅提升装备共鸣截图识别成功率，如还失败，可以切换到手动模式。
           欢迎到<a target="_blank" rel="noopener noreferrer" href="http://tieba.baidu.com/p/5768717398?pid=120516839719"> 贴吧 </a>
           讨论。<a target="_blank" rel="noopener noreferrer" href="https://github.com/homkai/lsqy-gm/"> GitHub </a>
           可以一起完善
@@ -172,6 +174,12 @@ class App extends Component {
     }
   }
 
+  handleToggleRewardModal = () => {
+    this.setState({
+      showReward: !this.state.showReward
+    })
+  }
+
   handleSetDefaultCells = () => {
     this.setState({
       baseCells: JSON.parse(defaultCells),
@@ -186,7 +194,7 @@ class App extends Component {
 
   render() {
     const {baseCells, positions, showCellCornerModal, cellCornerModalProps, topList,
-      message, calcDisabled, grade, sort, uploadDisabled} = this.state;
+      message, calcDisabled, grade, sort, uploadDisabled, showReward} = this.state;
     const onClickCellCorner = this.handleClickCellCorner;
     const onChangeCellCorner = this.handleChangeCellCorner;
     const cells = baseCells.length ? getPlanCells(baseCells, positions, grade) : [];
@@ -278,6 +286,20 @@ class App extends Component {
                   </li>)
                 }
               </ul>
+            }
+            {
+              !!topList.length && <div className="plan-btm"><a href="javascript:;" onClick={this.handleToggleRewardModal}>打赏支持一下</a></div>
+            }
+            {
+              showReward && <Modal
+                className="reward-modal"
+                title="微信扫码打赏"
+                visible={true}
+                onCancel={this.handleToggleRewardModal}
+                footer={null}
+              >
+                <img className="reward-pic" src={rewardPic} alt="微信打赏图片"/>
+              </Modal>
             }
           </div>
         </main>

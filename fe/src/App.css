@@ -39,7 +39,7 @@
   float: left;
   width: 460px;
   height: 460px;
-  margin: 50px auto;
+  margin: 30px auto;
   position: relative; }
   .gm-cells .gm-cell {
     position: absolute;
@@ -131,7 +131,7 @@
 .gm-calc {
   float: left;
   width: 330px;
-  margin: 50px 0 0 50px; }
+  margin: 30px 0 0 50px; }
   .gm-calc .grade-select {
     margin: 10px 0; }
   .gm-calc .calc-btn {
@@ -139,9 +139,10 @@
   .gm-calc .top-plan-list {
     list-style: none;
     padding: 0;
-    max-height: 300px;
+    max-height: 290px;
     overflow-y: auto;
-    margin-top: 20px; }
+    margin-top: 10px;
+    margin-bottom: 0; }
     .gm-calc .top-plan-list li {
       cursor: pointer;
       margin-bottom: 5px;
@@ -150,6 +151,17 @@
       .gm-calc .top-plan-list li .line-count {
         display: inline-block;
         margin-right: 20px; }
+  .gm-calc .plan-btm {
+    padding: 10px 20px;
+    text-align: right; }
+
+.reward-modal .ant-modal-body {
+  padding: 5px 0 10px 0; }
+
+.reward-modal .reward-pic {
+  height: 350px;
+  margin: 0 auto;
+  display: block; }
 
 .cell-conner-modal .control-row {
   display: inline-block; }
