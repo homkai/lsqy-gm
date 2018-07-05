@@ -8,6 +8,7 @@ import json
 import random
 
 debug = 0
+color_fail_count = 0
 
 
 def main(file_path):
@@ -21,15 +22,15 @@ def main(file_path):
 
     img, contours, hierarchy = cv2.findContours(canny, 1, 2)
     cell_points = calc_valid_cells(contours, image, image_src)
-    debug and cv2.imshow("contours ", image_src)
-    debug and cv2.waitKey()
+    # debug and cv2.imshow("contours ", image_src)
+    # debug and cv2.waitKey()
     center_x, center_y, margin = calc_center_side(cell_points, image)
     center_x, center_y = rotate_point((center_x, center_y), image, -45, 0)
     print('center', center_x, center_y)
     debug and cv2.rectangle(image_src, (center_x - 50, center_y - 50), (center_x + 50, center_y + 50), (255, 255, 0), 2)
 
-    _margin = int(margin * 1.414)
-    _radius = int(margin * 1.414 * 31 / 188)
+    _margin = int(margin * 1.42)
+    _radius = int(margin * 1.42 * 31 / 188)
 
     cells = [
         {
@@ -82,10 +83,12 @@ def main(file_path):
     #     cv2.rectangle(image_src, (cell['x_center'] - _radius, cell['y_center'] - _radius), (cell['x_center'] + _radius, cell['y_center'] + _radius), (255, 255, 0), 2)
     # debug and cv2.imshow("contours ", image_src)
     # debug and cv2.waitKey()
-    # debug and cv2.waitKey()
     # debug and cv2.destroyAllWindows()
 
+    global color_fail_count
+    color_fail_count = 0
     cells = [collect_cell(image_src, _radius, cell) for cell in cells]
+    print('color_fail_count', color_fail_count)
 
     debug and cv2.waitKey()
     debug and cv2.destroyAllWindows()
@@ -164,9 +167,14 @@ def collect_cell(image, radius, cell):
         'core': image[int(cell['y_center'] - radius + core_padding):int(cell['y_center'] + radius - core_padding),
                 int(cell['x_center'] - radius + core_padding):int(cell['x_center'] + radius - core_padding)]
     }, **cell)
+    global color_fail_count
     for pos in ['tl', 'tr', 'bl', 'br']:
         ret[pos] = cv2.resize(ret[pos], (int(h * .75), int(w * .75)), cv2.INTER_AREA)
         ret[pos] = color_classify(ret[pos][7, 1])
+        if ret[pos] is None or ret[pos].find('null') >  -1:
+            color_fail_count += 1
+            if debug == 0 and random.random() < 0.4:
+                ret[pos] = 'red'
     ret['core'] = 'data:image/jpeg;base64,' + str(base64.b64encode(cv2.imencode('.jpg', ret['core'])[1]), 'utf-8')
     return ret
 
@@ -267,20 +275,20 @@ def find_index(test, li):
 # 绿 111, 233, 166   102, 233, 167   124, 229, 165   106, 233, 165, 140, 197, 175
 # 红 112, 140, 233   102, 139, 254   98, 131, 250    106, 138, 250   190,150,132
 # 蓝 242, 213, 106
-# 灰 239, 254, 253
+# 灰 239, 254, 253   198,202,198
 def color_classify(px):
     b, g, r = px
     ret = None
-    if b > 200 and g > 180 and r < 150:
+    if b > 180 and g > 180 and r > 180:
+        ret = None
+    elif b > 200 and g > 180 and r < 150:
         ret = 'blue'
-    if b < 140 and g < 170 and r > 200:
+    elif b < 140 and g < 170 and r > 200:
         ret = 'red'
-    if b < 150 and g > 190 and r > 200:
+    elif b < 150 and g > 190 and r > 200:
         ret = 'yellow'
-    if b < 200 and g > 180 and r < 200:
+    elif b < 200 and g > 180 and r < 200:
         ret = 'green'
-    if ret is None and random.random() < 0.4 and debug == 0:
-        ret = 'red'
     # return (ret or 'null') + '({r},{g},{b})'.format(r=r, g=g, b=b)
     return ret
 
@@ -306,8 +314,8 @@ def is_similar(p1, p2, diff_x=3, diff_y=3):
 
 
 # if __name__ == '__main__':
-#     name = '2018-06-26-141154-60907.jpg'
-#     pic_filename = './pics/' + name
+#     name = 'gm_bg.jpg'
+#     pic_filename = '../pics/' + name
 #     debug = 0
 #     base_cells = main(pic_filename)
 #     print('cells', [(cell['tl'], cell['tr'], cell['bl'], cell['br']) for cell in base_cells])
