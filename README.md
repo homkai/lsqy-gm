@@ -7,8 +7,12 @@ http://www.homkai.com/lsqy-gm/
 
 ## 示意图
 上传装备共鸣截图
+
 ![效果图-装备共鸣截图](./demo-src.jpg)
+
+
 识别出截图装备及四角颜色-计算出最佳排列方案
+
 ![效果图-最佳排列方案](./demo-dist.jpg)
 
 
