@@ -26,8 +26,8 @@ SECRET_KEY = '!iximf@0)x)kct^=wpm0nik6*enuwk&7&bxrbz)t$!udve7%)o'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'api.homkai.com'
+    # '127.0.0.1',
+    'api1.homkai.com'
 ]
 
 
@@ -108,8 +108,7 @@ WSGI_APPLICATION = 'lsgmserver.wsgi.application'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'www.homkai.com',
-    'homkai.com'
+    'www.homkai.com'
 )
 
 CORS_ALLOW_METHODS = (

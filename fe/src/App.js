@@ -238,7 +238,7 @@ class App extends Component {
           <div className="gm-calc">
             <Upload {...{
               accept: '.jpg,.jpeg',
-              action: 'http://api.homkai.com:8001/eqprecog/upload',
+              action: 'http://api1.homkai.com:8001/eqprecog/upload',
               listType: 'picture',
               defaultFileList: [],
               onChange: this.handleUploadEqp,
