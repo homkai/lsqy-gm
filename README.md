@@ -21,5 +21,9 @@ http://www.homkai.com/lsqy-gm/
 - fe 前端部分
 - be 后端部分
 
+# 贴吧交流
+- 装备共鸣模拟器有知道哪有么？没有的话，如果有需求我可以开发 http://tieba.baidu.com/p/5768717398
+- 装备共鸣模拟器，开发好了，支持上传截图自动识别属性 http://tieba.baidu.com/p/5764520721
+
 
 欢迎大家一起来完善
